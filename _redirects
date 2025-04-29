@@ -1,0 +1,6 @@
+/* Este arquivo é necessário para garantir que o roteamento do lado do cliente funcione corretamente em hospedagem estática */
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

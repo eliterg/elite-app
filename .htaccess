@@ -1,0 +1,41 @@
+# Arquivo .htaccess aprimorado para aplicativo React
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Não aplicar regras a arquivos ou diretórios existentes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Redirecionar todas as solicitações para index.html
+  RewriteRule ^(.*)$ index.html [QSA,L]
+</IfModule>
+
+# Definir cabeçalhos de cache para melhorar o desempenho
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Imagens
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  
+  # CSS, JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  
+  # HTML - não armazenar em cache
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Permitir Cross-Origin Resource Sharing (CORS)
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# Forçar HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
